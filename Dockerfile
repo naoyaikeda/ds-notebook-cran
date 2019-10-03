@@ -63,7 +63,10 @@ RUN pip install optuna && \
     pip install pyunicorn && \
     pip install pyflux
 
-RUN R -e "install.packages(c('tidyverse','ggplot2'), dependencies=TRUE, repos='http://cran.rstudio.com/')"
+RUN R -e "install.packages(c('tidyverse','ggplot2'), dependencies=TRUE, repos='http://cran.rstudio.com/')" && \
+    R -e "install.packages(c('repr', 'IRdisplay', 'evaluate', 'crayon', 'pbdZMQ', 'uuid', 'digest'), dependencies=TRUE, repos='http://cran.rstudio.com/')" && \
+    R -e "devtools::install_github('IRkernel/IRkernel')" && \
+    R -e "IRkernel::installspec(user = FALSE)"
 
 RUN curl -L  "https://oscdl.ipa.go.jp/IPAexfont/ipaexg00301.zip" > font.zip && \
     unzip font.zip && \
